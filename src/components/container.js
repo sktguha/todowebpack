@@ -1,14 +1,12 @@
 import React from 'react';
 
-import {IconSettings} from '@salesforce/design-system-react/components/icon-settings';
-import {Tabs} from '@salesforce/design-system-react/components/tabs'; 
-import {TabsPanel} from '@salesforce/design-system-react/components/tabs/panel';
+import { IconSettings, Tabs, TabsPanel } from '@salesforce/design-system-react';
 
 class Example extends React.Component {
 	// static displayName = 'TabsExample';
 
 	render() {
-		return (	
+		return (
 			<IconSettings iconPath="/assets/icons">
 				<Tabs variant="scoped" id="tabs-example-scoped">
 					<TabsPanel label="Item One">Item One Content</TabsPanel>
