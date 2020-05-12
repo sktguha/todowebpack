@@ -37,10 +37,9 @@ const reducer = createReducer(state, {
 		})
 	},
 	[toggleTodo] : (state, action) => {
-		debugger;
 		let idx = state.todos.findIndex(todo => todo.id === action.payload.id*1)
 		console.log(idx);
-		state.todos[idx].done = toggle(state[idx].done);
+		state.todos[idx].done = toggle(state.todos[idx].done);
 	}
 })
 export default reducer;

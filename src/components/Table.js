@@ -59,6 +59,7 @@ class Example extends React.Component {
 }
 
 function getItemsByFilter(state, filter = "all"){
+	debugger;
 	if(filter === "all"){
 		return state.todos;
 	} else if(filter === "completed"){
