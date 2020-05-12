@@ -4,6 +4,7 @@ import {DataTable} from '@salesforce/design-system-react'
 import {DataTableColumn} from '@salesforce/design-system-react'
 import {DataTableCell} from '@salesforce/design-system-react'
 import {IconSettings} from '@salesforce/design-system-react'
+import { connect } from "react-redux";
 
 const CustomDataTableCell = ({ children, ...props }) => {
 	console.log(children, props);
@@ -13,6 +14,7 @@ const CustomDataTableCell = ({ children, ...props }) => {
 			id={props.item.id}
 			onChange={(event) => {
 				console.log("toggle for", event.target.id);
+
 			}}
 		/>
 			{children}
@@ -37,39 +39,32 @@ const columns = [
 ];
 
 class Example extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			items: [
-				{
-					id: '8IKZHZZV80',
-					text : "hi",
-					done: true
-				},
-				{
-					id: '5GJOOOPWU7',
-					text : "let's go",
-					done: false
-				},
-				{
-					id: '8IKZHZZV81',
-					text : "test todo",
-					done: false
-				},
-			],
-		};
-	}
 	render() {
 		return (
 			<IconSettings iconPath="/assets/icons">
 				<div style={{ overflow: 'auto' }}>
-					<DataTable items={this.state.items} id="DataTableExample-1-default">
-						{columns}
-					</DataTable>
+					{
+						this.props.items.length >0 ? <DataTable items={this.props.items} id="DataTableExample-1-default">
+							{columns}
+						</DataTable> :"No todos. yay"
+					}
 				</div>
 			</IconSettings>
 		);
 	}
 }
-export default Example;
+
+function getItemsByFilter(state, filter = "all"){
+	if(filter === "all"){
+		return state;
+	} else if(filter === "completed"){
+		return state.filter(item => item.done)
+	} else if(filter === "todo"){
+		return state.filter(item => !item.done)
+	}
+}
+
+export default connect((state,ownProps) => ({
+	items : getItemsByFilter(state, ownProps.filter)
+}))(Example);
 

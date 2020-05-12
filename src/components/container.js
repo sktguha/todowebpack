@@ -35,13 +35,15 @@ class Example extends React.Component {
 			<IconSettings iconPath="/assets/icons">
 				<Tabs ref="tabs" onSelect={this.onSelect.bind(this)} defaultSelectedIndex={this.state.sI} id="tabs-example-scoped">
 					<TabsPanel ref="all" label="All">
-					<Table />
+						<Table filter="all"/>
 					</TabsPanel>
-					<TabsPanel ref="todo" label="Todo">Item Two Content</TabsPanel>
-					<TabsPanel ref="completed" label="Completed">Item Three Content</TabsPanel>
-					<TabsPanel disabled label="Disabled">
-						Disabled Content
+					<TabsPanel ref="todo" label="Todo">
+						<Table filter="todo"/>
 					</TabsPanel>
+					<TabsPanel ref="completed" label="Completed">
+						<Table filter="completed"/>
+					</TabsPanel>
+					
 				</Tabs>
 			</IconSettings>
 		);
