@@ -43,7 +43,10 @@ class Example extends React.Component {
 		return (
 			<>
 			<input type="text" placeholder="enter todo" ref="todoInp"/><br/>
-			<button onClick = { ()=> this.props.addTodo(this.refs.todoInp.value) } >Add Todo</button>
+			<button onClick = { ()=> { 
+				this.props.addTodo(this.refs.todoInp.value)
+				this.refs.todoInp.value = "";
+			}} >Add Todo</button>
 			<IconSettings iconPath="/assets/icons">
 				<div style={{ overflow: 'auto' }}>
 					{
