@@ -21,7 +21,12 @@ class Example extends React.Component {
 		}
 	}
 	onSelect(){
-		console.log(ReactDOM.findDOMNode(this.refs["tabs"]))
+		setTimeout(()=>{ 
+			let dom = ReactDOM.findDOMNode(this.refs["tabs"]);
+			let activeId = [...dom.getElementsByTagName("a")].findIndex(a=>a.classList.contains("slds-active"))
+			console.log(activeId);
+			this.props.history.push(this.pathList[activeId]);
+		},500);
 	}
 	componentDidMount(){
 		["all","todo","completed"].forEach( 
