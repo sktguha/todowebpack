@@ -7,7 +7,8 @@ import {
 
 const addTodo = createAction("ADD_TODO")
 const toggleTodo = createAction("TOGGLE_TODO");
-let state = [
+let state = {
+	todos: [
 				{
 					id: 0,
 					text : "hi",
@@ -23,21 +24,23 @@ let state = [
 					text : "test todo",
 					done: false
 				},
-			];
+			]
+		};
 const toggle = val => !val;
 let id = 3;
 const reducer = createReducer(state, {
 	[addTodo] : (state, action) => {
-		state.push({
+		state.todos.push({
 			id : id++,
 			text : action.payload.text,
 			done:false
 		})
 	},
 	[toggleTodo] : (state, action) => {
-		let idx = state.findIndex(todo => todo.id === action.payload.id)
+		debugger;
+		let idx = state.todos.findIndex(todo => todo.id === action.payload.id*1)
 		console.log(idx);
-		state[idx].done = toggle(state[idx].done);
+		state.todos[idx].done = toggle(state[idx].done);
 	}
 })
 export default reducer;

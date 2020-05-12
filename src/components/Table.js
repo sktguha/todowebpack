@@ -41,6 +41,9 @@ const columns = [
 class Example extends React.Component {
 	render() {
 		return (
+			<>
+			<input type="text" placeholder="enter todo" ref="todoInp"/><br/>
+			<button onClick = { ()=> this.props.addTodo(this.refs.todoInp.value) } >Add Todo</button>
 			<IconSettings iconPath="/assets/icons">
 				<div style={{ overflow: 'auto' }}>
 					{
@@ -50,17 +53,18 @@ class Example extends React.Component {
 					}
 				</div>
 			</IconSettings>
+			</>
 		);
 	}
 }
 
 function getItemsByFilter(state, filter = "all"){
 	if(filter === "all"){
-		return state;
+		return state.todos;
 	} else if(filter === "completed"){
-		return state.filter(item => item.done)
+		return state.todos.filter(item => item.done)
 	} else if(filter === "todo"){
-		return state.filter(item => !item.done)
+		return state.todos.filter(item => !item.done)
 	}
 }
 
@@ -71,6 +75,12 @@ export default connect((state,ownProps) => ({
 		type: "TOGGLE_TODO",
 		payload : {
 			id
+		}
+	}),
+	addTodo: text => dispatch({
+		type: "ADD_TODO",
+		payload : {
+			text
 		}
 	})
 }))(Example);
