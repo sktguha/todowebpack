@@ -5,46 +5,35 @@ import {DataTableColumn} from '@salesforce/design-system-react'
 import {DataTableCell} from '@salesforce/design-system-react'
 import {IconSettings} from '@salesforce/design-system-react'
 
-const CustomDataTableCell = ({ children, ...props }) => (
-	<DataTableCell {...props}>
-		<a
-			href="javascript:void(0);"
-			onClick={(event) => {
-				event.preventDefault();
+const CustomDataTableCell = ({ children, ...props }) => {
+	console.log(children, props);
+	return <DataTableCell {...props}>
+		<div><input 
+			type="checkbox" defaultChecked = {children}
+			id={props.item.id}
+			onChange={(event) => {
+				console.log("toggle for", event.target.id);
 			}}
-		>
+		/>
 			{children}
-		</a>
+		</div>
 	</DataTableCell>
-);
+};
 CustomDataTableCell.displayName = DataTableCell.displayName;
 
 const columns = [
-	<DataTableColumn
-		key="opportunity"
-		label="Opportunity Name"
-		property="opportunityName"
-	>
-		<CustomDataTableCell />
-	</DataTableColumn>,
+	<DataTableColumn key="stage" label="id" property="id" />,
 
-	<DataTableColumn
-		key="account-name"
-		label="Account Name"
-		property="accountName"
-	/>,
+	<DataTableColumn key="confidence" label="done" property="done">
+	<CustomDataTableCell />
+	</DataTableColumn>
+	,
 
-	<DataTableColumn key="close-date" label="Close Date" property="closeDate" />,
+	<DataTableColumn key="amount" label="text" property="text" />,
 
-	<DataTableColumn key="stage" label="Stage" property="stage" />,
-
-	<DataTableColumn key="confidence" label="Confidence" property="confidence" />,
-
-	<DataTableColumn key="amount" label="Amount" property="amount" />,
-
-	<DataTableColumn key="contact" label="Contact" property="contact">
-		<CustomDataTableCell />
-	</DataTableColumn>,
+	// <DataTableColumn key="contact" label="Contact" property="contact">
+	// 	<CustomDataTableCell />
+	// </DataTableColumn>,
 ];
 
 class Example extends React.Component {
@@ -54,33 +43,18 @@ class Example extends React.Component {
 			items: [
 				{
 					id: '8IKZHZZV80',
-					opportunityName: 'Cloudhub',
-					accountName: 'Cloudhub',
-					closeDate: '4/14/2015',
-					stage: 'Prospecting',
-					confidence: '20%',
-					amount: '$25k',
-					contact: 'jrogers@cloudhub.com',
+					text : "hi",
+					done: true
 				},
 				{
 					id: '5GJOOOPWU7',
-					opportunityName: 'Cloudhub + Anypoint Connectors',
-					accountName: 'Cloudhub',
-					closeDate: '4/14/2015',
-					stage: 'Prospecting',
-					confidence: '20%',
-					amount: '$25k',
-					contact: 'jrogers@cloudhub.com',
+					text : "let's go",
+					done: false
 				},
 				{
 					id: '8IKZHZZV81',
-					opportunityName: 'Cloudhub',
-					accountName: 'Cloudhub',
-					closeDate: '4/14/2015',
-					stage: 'Prospecting',
-					confidence: '20%',
-					amount: '$25k',
-					contact: 'jrogers@cloudhub.com',
+					text : "test todo",
+					done: false
 				},
 			],
 		};
