@@ -14,7 +14,7 @@ const CustomDataTableCell = ({ children, ...props }) => {
 			id={props.item.id}
 			onChange={(event) => {
 				console.log("toggle for", event.target.id);
-
+				props.toggleTodo(event.target.id);
 			}}
 		/>
 			{children}
@@ -27,7 +27,7 @@ const columns = [
 	<DataTableColumn key="stage" label="id" property="id" />,
 
 	<DataTableColumn key="confidence" label="done" property="done">
-	<CustomDataTableCell />
+		<CustomDataTableCell />
 	</DataTableColumn>
 	,
 
@@ -44,9 +44,9 @@ class Example extends React.Component {
 			<IconSettings iconPath="/assets/icons">
 				<div style={{ overflow: 'auto' }}>
 					{
-						this.props.items.length >0 ? <DataTable items={this.props.items} id="DataTableExample-1-default">
+						this.props.items.length >0 ? <DataTable toggleTodo = {this.props.toggleTodo} items={this.props.items} id="DataTableExample-1-default">
 							{columns}
-						</DataTable> :"No todos. yay"
+						</DataTable> :"No todos in "+this.props.filter+" category. yay"
 					}
 				</div>
 			</IconSettings>
@@ -66,5 +66,12 @@ function getItemsByFilter(state, filter = "all"){
 
 export default connect((state,ownProps) => ({
 	items : getItemsByFilter(state, ownProps.filter)
+}), (dispatch) => ({
+	toggleTodo : id => dispatch({
+		type: "TOGGLE_TODO",
+		payload : {
+			id
+		}
+	})
 }))(Example);
 
