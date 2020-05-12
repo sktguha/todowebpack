@@ -4,6 +4,7 @@ import {IconSettings} from '@salesforce/design-system-react';
 import {Tabs} from '@salesforce/design-system-react'; 
 import {TabsPanel} from '@salesforce/design-system-react';
 import { withRouter } from 'react-router-dom';
+import Table from "./Table";
 
 class Example extends React.Component {
 	// static displayName = 'TabsExample';
@@ -28,23 +29,16 @@ class Example extends React.Component {
 			this.props.history.push(this.pathList[activeId]);
 		},500);
 	}
-	componentDidMount(){
-		["all","todo","completed"].forEach( 
-			(ref) => { console.log(ReactDOM.findDOMNode(this.refs[ref]))});
-		console.log(ReactDOM.findDOMNode(this.refs["tabs"]))
-		// setTimeout(()=>{ thcd is.setState({
-		// 		sI: null
-		// 	})
-		// },3000);
-	}
 	render() {
 		
 		return (	
 			<IconSettings iconPath="/assets/icons">
 				<Tabs ref="tabs" onSelect={this.onSelect.bind(this)} defaultSelectedIndex={this.state.sI} id="tabs-example-scoped">
-					<TabsPanel ref="all" label="Item One">Item One Content</TabsPanel>
-					<TabsPanel ref="todo" label="Item Two">Item Two Content</TabsPanel>
-					<TabsPanel ref="completed" label="Item Three">Item Three Content</TabsPanel>
+					<TabsPanel ref="all" label="All">
+					<Table />
+					</TabsPanel>
+					<TabsPanel ref="todo" label="Todo">Item Two Content</TabsPanel>
+					<TabsPanel ref="completed" label="Completed">Item Three Content</TabsPanel>
 					<TabsPanel disabled label="Disabled">
 						Disabled Content
 					</TabsPanel>
